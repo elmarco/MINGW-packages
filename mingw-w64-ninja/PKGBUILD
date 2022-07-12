@@ -13,12 +13,15 @@ license=('Apache')
 depends=()
 options=('strip' 'staticlibs')
 makedepends=("re2c" "${MINGW_PACKAGE_PREFIX}-python" "${MINGW_PACKAGE_PREFIX}-cc")
-source=("${_realname}-${pkgver}.tar.gz"::"https://github.com/ninja-build/ninja/archive/v${pkgver}.tar.gz")
-sha256sums=('3c6ba2e66400fe3f1ae83deb4b235faf3137ec20bd5b08c29bfc368db143e4c6')
+source=("${_realname}-${pkgver}.tar.gz"::"https://github.com/ninja-build/ninja/archive/v${pkgver}.tar.gz"
+	"0001-test.patch")
+sha256sums=('3c6ba2e66400fe3f1ae83deb4b235faf3137ec20bd5b08c29bfc368db143e4c6'
+            'ce4d34ec8d51b8682a0dc68328ae0383ec4459dfe2de420803c80fe9c8c8cd97')
 
 build() {
   mkdir -p "${pkgdir}${MINGW_PREFIX}"/bin
   cd ${srcdir}/ninja-${pkgver}
+  patch -p1 -i "${srcdir}/0001-test.patch"
   ${MINGW_PREFIX}/bin/python3 configure.py --bootstrap --platform mingw
 }
 

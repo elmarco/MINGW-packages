@@ -1,0 +1,25 @@
+From 8b1573bddf809536477690d3603d9e23e136d07b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
+Date: Tue, 12 Jul 2022 15:57:29 +0400
+Subject: [PATCH] test
+
+---
+ src/subprocess-win32.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/subprocess-win32.cc b/src/subprocess-win32.cc
+index ff3baaca7fc1..a86845e4f13d 100644
+--- a/src/subprocess-win32.cc
++++ b/src/subprocess-win32.cc
+@@ -194,6 +194,8 @@ ExitStatus Subprocess::Finish() {
+ 
+   DWORD exit_code = 0;
+   GetExitCodeProcess(child_, &exit_code);
++  if (exit_code != 0)
++    fprintf(stderr, "GetExitCodeProcess() == %ld\n", exit_code);
+ 
+   CloseHandle(child_);
+   child_ = NULL;
+-- 
+2.37.0.rc0
+
